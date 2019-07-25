@@ -48,7 +48,7 @@ class App extends Component {
   }
 
   handleChanges = e => {
-    const input = e.target;
+    const input = e.currentTarget;
     const name = input.name;
     const value = input.type === "checkbox" ? input.checked : input.value;
     this.setState({ [name]: value });

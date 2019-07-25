@@ -18,7 +18,7 @@ class Shops extends Component {
                 id="card_img"
               />
               <Card.Body>
-                <Card.Title>{detail.nom}</Card.Title>
+                <Card.Title className="shopTitle">{detail.nom}</Card.Title>
                 <Card.Text>{detail.resume}</Card.Text>
                 <Button variant="primary" onClick={this.props.filterClick}>
                   Détails

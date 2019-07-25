@@ -2,8 +2,13 @@
   text-align: center;
 }
 
+.shopTitle{
+  text-align: center;
+  text-transform: uppercase;
+}
+
 #card_img{
- width: 100%;
+ width: 120px;
  display: block;
  margin-left: auto;
  margin-right: auto 
