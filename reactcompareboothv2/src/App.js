@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import config from './config'
-import Firebase from "firebase"
+
+import * as firebase from "firebase"
 
 import './App.css';
 
@@ -8,23 +9,28 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      personnages: [],
+      shops: [],
     }
  
-    if (!Firebase.apps.length) {
-      Firebase.initializeApp(config);
+    //To resolve clone App error when we are initializing App
+    
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
    }
   }
 
   
   getUserData = () => {
-    let ref = Firebase.database().ref("/");
+    let ref = firebase.database().ref("shops");
     ref.on("value", snapshot => {
       const state = snapshot.val();
-      this.setState(state);
+      this.setState(
+        {
+          shops: state
+        });
     });
   };
-  componentDidMount(){
+  componentWillMount(){
     this.getUserData();
   }
   render() { 
