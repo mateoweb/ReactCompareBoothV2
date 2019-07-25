@@ -15,7 +15,7 @@ class Shops extends Component {
               <Card style={{ width: "22rem" }}>
                 <Card.Img
                   variant="top"
-                  src="holder.js/100px180?text=Image cap"
+                  src= {detail.imgURL}
                 />
                 <Card.Body>
                   <Card.Title>{detail.nom}</Card.Title>
