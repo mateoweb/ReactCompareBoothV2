@@ -9,17 +9,20 @@ import "./App.css";
 import Header from "./components/Header";
 import MoreFilters from "./components/MoreFilters";
 import ShopPreview from "./components/ShopPreview"
+import ShopSearch from "./components/ShopSearch"
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isNotClicked : true,
       handleShopClick: false,
       selectedOption: "option1",
       cabinePhoto: false,
       bornePhoto: false,
       helioBooth: false,
       filteredResults: [],
+      filteredResultsLength: 0,
       rating: 5,
       shops: []
     };
@@ -50,8 +53,18 @@ class App extends Component {
     this.setState({ [name]: value });
   };
 
+
   filterClick = e => {
     e.preventDefault();
+    
+
+
+    this.setState({
+      ...this.state,
+      isNotClicked:false,
+      isClicked:true,
+      filteredResultsLength: this.state.filteredResults.length
+    })
     function multiFilter(array, filters) {
       const filterKeys = Object.keys(filters);
       // filters all elements passing the criteria
@@ -65,9 +78,7 @@ class App extends Component {
       });
     }
 
-    let shops = this.state.shops;
-
-  
+    let shops = this.state.shops;  
 
     if (
       this.state.bornePhoto === true &&
@@ -268,12 +279,13 @@ class App extends Component {
     // *filter the shops array by choosen parameters
   };
 
+
   render() {
     return (
-      <div>
-        <h1>Hello</h1>
+      <React.Fragment>
         <Header
           handleChanges={this.handleChanges}
+          isClicked={this.isClicked}
           filterClick={this.filterClick}
           filteredResults={this.state.filteredResults}
           startDate={this.state.startDate} // momentPropTypes.momentObj or null,
@@ -287,10 +299,11 @@ class App extends Component {
           onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
         />
         <MoreFilters handleChanges={this.handleChanges} />
-        <ShopPreview
-        filteredResults={this.state.filteredResults}
-        />
-      </div>
+        <React.Fragment>
+          {this.state.isNotClicked && <ShopPreview shops={this.state.shops} filteredResults={this.state.filteredResults}/> }    
+          {this.state.isClicked && <ShopSearch  filteredResults={this.state.filteredResults} shops={this.state.shops}/>}
+        </React.Fragment>
+      </React.Fragment>
     );
   }
 }

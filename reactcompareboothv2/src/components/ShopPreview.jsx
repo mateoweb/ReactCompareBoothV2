@@ -1,16 +1,12 @@
-import React, { Component } from 'react'
-import ShopResume from './ShopResume'
+import React from "react";
+import Shops from "./Shops";
 
-class ShopPreview extends Component {
- 
-    render() { 
-        console.log(this.props.FilteredResults)
-        return ( 
-            <div>
-                <ShopResume/>
-            </div>
-         );
-    }
-}
- 
-export default ShopPreview ;
+const ShopPreview = props => {
+  return (
+  <div>
+    <h1>Sélectionnez le prestataire de votre choix !</h1>
+  <Shops {...props} />
+  </div>
+)};
+
+export default ShopPreview;

@@ -5,12 +5,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import { DateRangePicker} from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
-import moment from 'moment'
+import { DateRangePicker } from "react-dates";
+import "react-dates/lib/css/_datepicker.css";
+import moment from "moment";
 
-moment.locale('fr')
-
+moment.locale("fr");
 
 class HeaderFilters extends Component {
   state = {};
@@ -18,9 +17,9 @@ class HeaderFilters extends Component {
     return (
       <React.Fragment>
         <Navbar className="bg-light justify-content-between">
-        <div inline="true">
-          <Navbar.Brand>Comparator-Booth</Navbar.Brand>
-          <p>Que recherchez vous? </p>
+          <div inline="true">
+            <Navbar.Brand>Comparator-Booth</Navbar.Brand>
+            <p>Que recherchez vous? </p>
           </div>
           <Form inline>
             {["radio"].map(type => (
@@ -71,16 +70,18 @@ class HeaderFilters extends Component {
                 </div>
               </div>
             ))}
-          <DateRangePicker
-  startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-  startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-  endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-  endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-  onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
-  focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-  onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-  displayFormat={() => moment.localeData('fr').longDateFormat('L')}
-/>
+            <DateRangePicker
+              startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+              startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+              endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+              endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+              onDatesChange={({ startDate, endDate }) =>
+                this.setState({ startDate, endDate })
+              } // PropTypes.func.isRequired,
+              focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+              onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+              displayFormat={() => moment.localeData("fr").longDateFormat("L")}
+            />
             <Button variant="success" onClick={this.props.filterClick}>
               Go !
             </Button>
