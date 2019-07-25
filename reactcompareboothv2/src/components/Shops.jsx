@@ -1,25 +1,43 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import Card from "react-bootstrap/Card"
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
 
 class Shops extends Component {
-    state = {  }
-    render() { 
-        return (
-            <React.Fragment>
-                 {this.props.shops.map((detail, index) => {
-               
-               return <React.Fragment key={index}>
-                   <h1>{detail.nom}</h1><h2>A partir de: {detail.startPrice} €</h2>
-                   
-               
-               <h3>Présentation</h3>
-               <p>{detail.resume}</p>
-               <a href="#top">{detail.website}</a>
-               </React.Fragment> 
-           })}
-
+  state = {};
+  render() {
+    return (
+      <React.Fragment>
+        {this.props.shops.map((detail, index) => {
+          return (
+            <React.Fragment key={index}>
+              <Card style={{ width: "22rem" }}>
+                <Card.Img
+                  variant="top"
+                  src="holder.js/100px180?text=Image cap"
+                />
+                <Card.Body>
+                  <Card.Title>{detail.nom}</Card.Title>
+                  <Card.Text>{detail.resume}</Card.Text>
+                  <Button variant="primary" onClick={this.props.filterClick}>Détails</Button>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                  <ListGroupItem>
+                    A partir de: {detail.startPrice} €
+                  </ListGroupItem>
+                  <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
+                </ListGroup>
+                <Card.Body>
+                  <Card.Link href="#">{detail.website}</Card.Link>
+                </Card.Body>
+              </Card>
             </React.Fragment>
-          )
-    }
+          );
+        })}
+      </React.Fragment>
+    );
+  }
 }
- 
+
 export default Shops;
