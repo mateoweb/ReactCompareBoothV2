@@ -16,6 +16,7 @@ class App extends Component {
     super(props);
     this.state = {
       isNotClicked : true,
+      isMoreFiltersNotRequired:true,
       handleShopClick: false,
       selectedOption: "option1",
       cabinePhoto: false,
@@ -53,15 +54,28 @@ class App extends Component {
     this.setState({ [name]: value });
   };
 
+  moreFilterClick = e => {
+    e.preventDefault();
+
+    this.setState({
+      ...this.state,
+      isMoreFiltersNotRequired:false,
+
+      //If its Search Click is cliked
+      isMoreFiltersRequired:true,
+      filteredResultsLength: this.state.filteredResults.length
+    })
+  }
+
 
   filterClick = e => {
     e.preventDefault();
-    
-
 
     this.setState({
       ...this.state,
       isNotClicked:false,
+
+      //If its Search Click is cliked
       isClicked:true,
       filteredResultsLength: this.state.filteredResults.length
     })
@@ -282,11 +296,12 @@ class App extends Component {
 
   render() {
     return (
-      <React>
+      <React.Fragment>
         <Header
           handleChanges={this.handleChanges}
           isClicked={this.isClicked}
           filterClick={this.filterClick}
+          moreFilterClick={this.moreFilterClick} 
           filteredResults={this.state.filteredResults}
           startDate={this.state.startDate} // momentPropTypes.momentObj or null,
           startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
@@ -298,12 +313,17 @@ class App extends Component {
           focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
           onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
         />
-        <MoreFilters handleChanges={this.handleChanges} />
+        {this.state.isMoreFiltersRequired && <MoreFilters 
+        handleChanges={this.handleChanges}
+          isClicked={this.isClicked}
+          filterClick={this.filterClick}
+          moreFilterClick={this.moreFilterClick} 
+          filteredResults={this.state.filteredResults}/>}
         <React.Fragment>
           {this.state.isNotClicked && <ShopPreview shops={this.state.shops} filteredResults={this.state.filteredResults}/> }    
           {this.state.isClicked && <ShopSearch  filteredResults={this.state.filteredResults} shops={this.state.shops}/>}
         </React.Fragment>
-      </React>
+      </React.Fragment>
     );
   }
 }

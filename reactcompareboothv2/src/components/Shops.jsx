@@ -1,42 +1,33 @@
 import React, { Component } from "react";
-import Card from "react-bootstrap/Card"
-import ListGroupItem from "react-bootstrap/ListGroupItem";
-import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
+import CardGroup from "react-bootstrap/CardGroup";
 import Button from "react-bootstrap/Button";
+import "../App.css"
 
 class Shops extends Component {
   state = {};
   render() {
     return (
-      <React.Fragment>
+      <CardGroup className="card_container">
         {this.props.shops.map((detail, index) => {
           return (
-            <React.Fragment key={index}>
-              <Card style={{ width: "20rem" }}>
-                <Card.Img
-                  style={{ width: "70%" }}
-                  variant="top"
-                  src= {detail.imgURL}
-                />
-                <Card.Body>
-                  <Card.Title>{detail.nom}</Card.Title>
-                  <Card.Text>{detail.resume}</Card.Text>
-                  <Button variant="outline-info" onClick={this.props.filterClick}>Détails</Button>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                  <ListGroupItem>
-                    A partir de: {detail.startPrice} €
-                  </ListGroupItem>
-                  <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                </ListGroup>
-                <Card.Body>
-                  <Card.Link href="#">{detail.website}</Card.Link>
-                </Card.Body>
-              </Card>
-            </React.Fragment>
+            <Card className="card_item" key = {index}>
+              <Card.Img
+                variant="top"
+                src={detail.imgURL}
+                id="card_img"
+              />
+              <Card.Body>
+                <Card.Title>{detail.nom}</Card.Title>
+                <Card.Text>{detail.resume}</Card.Text>
+                <Button variant="primary" onClick={this.props.filterClick}>
+                  Détails
+                </Button>
+              </Card.Body>             
+            </Card>
           );
         })}
-      </React.Fragment>
+      </CardGroup>
     );
   }
 }
