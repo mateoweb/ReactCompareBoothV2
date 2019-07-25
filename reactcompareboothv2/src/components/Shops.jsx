@@ -12,15 +12,16 @@ class Shops extends Component {
         {this.props.shops.map((detail, index) => {
           return (
             <React.Fragment key={index}>
-              <Card style={{ width: "22rem" }}>
+              <Card style={{ width: "20rem" }}>
                 <Card.Img
+                  style={{ width: "70%" }}
                   variant="top"
                   src= {detail.imgURL}
                 />
                 <Card.Body>
                   <Card.Title>{detail.nom}</Card.Title>
                   <Card.Text>{detail.resume}</Card.Text>
-                  <Button variant="primary" onClick={this.props.filterClick}>Détails</Button>
+                  <Button variant="outline-info" onClick={this.props.filterClick}>Détails</Button>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
                   <ListGroupItem>

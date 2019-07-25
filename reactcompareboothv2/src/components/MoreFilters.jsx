@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 import Form from "react-bootstrap/Form";
 
-
 class MoreFilters extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
-    render() { 
-        return ( 
-            <React.Fragment>
-                {["checkbox"].map(type => (
-              <div className="list-group">
-              <div className="list-group-item">
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <React.Fragment>
+        {["checkbox"].map(type => (
+          <div className="list-group">
+            <div className="list-group-item">
               <div key={`custom-inline-${type}`} className="mb-3">
+              <Form.Label>Type de matériel: &nbsp;</Form.Label>
                 <Form.Check
                   custom
                   inline
@@ -45,14 +45,31 @@ class MoreFilters extends Component {
                   value={this.props.helioBooth}
                   onChange={this.props.handleChanges}
                 />
+
+                
               </div>
-              </div>
+              
+        <Form.Group inline controlId="exampleForm.ControlSelect1">
+          <Form.Label>Type d'événement:</Form.Label>
+          <Form.Control style={{ width: "300px" }} as="select">
+            <option>Mariage</option>
+            <option>Anniversaire</option>
+            <option>EVJF/EVJG</option>
+            <option>Soirée d'entreprise</option>
+            <option>Salon</option>
+            <option>Longue durée</option>
+            <option>Autres</option>
+          </Form.Control>
+        </Form.Group>
             </div>
+
             
-            ))}
-            </React.Fragment>
-         );
-    }
+          </div>
+        ))}
+
+      </React.Fragment>
+    );
+  }
 }
- 
+
 export default MoreFilters;

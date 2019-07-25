@@ -3,11 +3,11 @@ import React, { Component } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 import moment from "moment";
+
 
 moment.locale("fr");
 
@@ -16,16 +16,14 @@ class HeaderFilters extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar className="bg-light justify-content-between">
-          <div inline="true">
-            <Navbar.Brand>Comparator-Booth</Navbar.Brand>
-            <p>Que recherchez vous? </p>
-          </div>
+        <Navbar className="bg-light">
+          <Navbar.Brand href="#home">Comparator-Booth</Navbar.Brand>
+          
           <Form inline>
+            
             {["radio"].map(type => (
-              <div className="list-group">
-                <div className="list-group-item">
-                  <div key={`custom-inline-${type}`} className="mb-3">
+              
+                  <React.Fragment key={`custom-inline-${type}`} className="mb-3">
                     <Form.Check
                       custom
                       inline
@@ -47,16 +45,12 @@ class HeaderFilters extends Component {
                       value="pros"
                       checked={this.props.selectedOption === "pros"}
                       onChange={this.props.handleChanges}
-                    />
-                  </div>
-                </div>
-                <div className="list-group-item">
-                  <InputGroup>
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="basic-addon1">
-                        <span className="oi oi-map-marker" />
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
+                    />          
+              </React.Fragment>
+            ))}
+          </Form>&nbsp;
+         
+          <Form inline>                    
                     <FormControl
                       placeholder="Code postal"
                       aria-label="Code postal"
@@ -65,12 +59,8 @@ class HeaderFilters extends Component {
                       name="zip_code"
                       value={this.props.zip_code}
                       onChange={this.props.handleChanges}
-                    />
-                  </InputGroup>
-                </div>
-              </div>
-            ))}
-            <DateRangePicker
+                    />&nbsp;
+                <DateRangePicker
               startDate={this.state.startDate} // momentPropTypes.momentObj or null,
               startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
               endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -79,9 +69,13 @@ class HeaderFilters extends Component {
                 this.setState({ startDate, endDate })
               } // PropTypes.func.isRequired,
               focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-              onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-              displayFormat={() => moment.localeData("fr").longDateFormat("L")}
-            />
+              onFocusChange={focusedInput =>
+                this.setState({ focusedInput })
+              } // PropTypes.func.isRequired,
+              displayFormat={() =>
+                moment.localeData("fr").longDateFormat("L")
+              }
+            />&nbsp;
             <Button variant="success" onClick={this.props.filterClick}>
               Go !
             </Button>

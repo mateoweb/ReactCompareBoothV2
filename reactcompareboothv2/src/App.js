@@ -282,7 +282,7 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <React>
         <Header
           handleChanges={this.handleChanges}
           isClicked={this.isClicked}
@@ -303,7 +303,7 @@ class App extends Component {
           {this.state.isNotClicked && <ShopPreview shops={this.state.shops} filteredResults={this.state.filteredResults}/> }    
           {this.state.isClicked && <ShopSearch  filteredResults={this.state.filteredResults} shops={this.state.shops}/>}
         </React.Fragment>
-      </React.Fragment>
+      </React>
     );
   }
 }
