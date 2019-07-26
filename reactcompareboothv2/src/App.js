@@ -8,15 +8,17 @@ import "./App.css";
 
 import Header from "./components/Header";
 import MoreFilters from "./components/MoreFilters";
-import ShopPreview from "./components/ShopPreview"
-import ShopSearch from "./components/ShopSearch"
+import ShopPreview from "./components/ShopPreview";
+import ShopSearch from "./components/ShopSearch";
+import Footer from "./components/Footer";
+import ShopDetails from "./components/ShopDetails"
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isNotClicked : true,
-      isMoreFiltersNotRequired:true,
+      isNotClicked: true,
+      isMoreFiltersNotRequired: true,
       handleShopClick: false,
       selectedOption: "option1",
       cabinePhoto: false,
@@ -25,7 +27,8 @@ class App extends Component {
       filteredResults: [],
       filteredResultsLength: 0,
       rating: 5,
-      shops: []
+      shops: [],
+      loading: true
     };
     //To resolve clone App error when we are initializing App
 
@@ -39,7 +42,8 @@ class App extends Component {
     ref.on("value", snapshot => {
       const state = snapshot.val();
       this.setState({
-        shops: state
+        shops: state,
+        loading: false
       });
     });
   };
@@ -59,26 +63,25 @@ class App extends Component {
 
     this.setState({
       ...this.state,
-      isMoreFiltersNotRequired:false,
+      isMoreFiltersNotRequired: false,
 
       //If its Search Click is cliked
-      isMoreFiltersRequired:true,
+      isMoreFiltersRequired: true,
       filteredResultsLength: this.state.filteredResults.length
-    })
-  }
-
+    });
+  };
 
   filterClick = e => {
     e.preventDefault();
 
     this.setState({
       ...this.state,
-      isNotClicked:false,
+      isNotClicked: false,
 
       //If its Search Click is cliked
-      isClicked:true,
+      isClicked: true,
       filteredResultsLength: this.state.filteredResults.length
-    })
+    });
     function multiFilter(array, filters) {
       const filterKeys = Object.keys(filters);
       // filters all elements passing the criteria
@@ -92,7 +95,7 @@ class App extends Component {
       });
     }
 
-    let shops = this.state.shops;  
+    let shops = this.state.shops;
 
     if (
       this.state.bornePhoto === true &&
@@ -111,16 +114,16 @@ class App extends Component {
       });
 
       //2nd filter to filter b2b/b2C
-      if(this.state.selectedOption === "pros"){
-       filters = {
-         pros: ["OUI"]
-       };
+      if (this.state.selectedOption === "pros") {
+        filters = {
+          pros: ["OUI"]
+        };
 
-       filtered = multiFilter(filtered, filters);
+        filtered = multiFilter(filtered, filters);
 
-       this.setState({
-         filteredResults : filtered
-       })
+        this.setState({
+          filteredResults: filtered
+        });
       }
       console.info("Filtered:");
       console.log(filtered);
@@ -138,17 +141,17 @@ class App extends Component {
         filteredResults: filtered
       });
       //2nd filter to filter b2b/b2C
-      if(this.state.selectedOption === "pros"){
+      if (this.state.selectedOption === "pros") {
         filters = {
           pros: ["OUI"]
         };
- 
+
         filtered = multiFilter(filtered, filters);
- 
+
         this.setState({
-          filteredResults : filtered
-        })
-       }
+          filteredResults: filtered
+        });
+      }
 
       console.info("Filtered:");
       console.log(filtered);
@@ -167,17 +170,17 @@ class App extends Component {
       });
 
       //2nd filter to filter b2b/b2C
-      if(this.state.selectedOption === "pros"){
+      if (this.state.selectedOption === "pros") {
         filters = {
           pros: ["OUI"]
         };
- 
+
         filtered = multiFilter(filtered, filters);
- 
+
         this.setState({
-          filteredResults : filtered
-        })
-       }
+          filteredResults: filtered
+        });
+      }
 
       console.info("Filtered:");
       console.log(filtered);
@@ -196,17 +199,17 @@ class App extends Component {
       });
 
       //2nd filter to filter b2b/b2C
-      if(this.state.selectedOption === "pros"){
+      if (this.state.selectedOption === "pros") {
         filters = {
           pros: ["OUI"]
         };
- 
+
         filtered = multiFilter(filtered, filters);
- 
+
         this.setState({
-          filteredResults : filtered
-        })
-       }
+          filteredResults: filtered
+        });
+      }
 
       console.info("Filtered:");
       console.log(filtered);
@@ -221,17 +224,17 @@ class App extends Component {
       });
 
       //2nd filter to filter b2b/b2C
-      if(this.state.selectedOption === "pros"){
+      if (this.state.selectedOption === "pros") {
         filters = {
           pros: ["OUI"]
         };
- 
+
         filtered = multiFilter(filtered, filters);
- 
+
         this.setState({
-          filteredResults : filtered
-        })
-       }
+          filteredResults: filtered
+        });
+      }
 
       console.info("Filtered:");
       console.log(filtered);
@@ -246,17 +249,17 @@ class App extends Component {
       });
 
       //2nd filter to filter b2b/b2C
-      if(this.state.selectedOption === "pros"){
+      if (this.state.selectedOption === "pros") {
         filters = {
           pros: ["OUI"]
         };
- 
+
         filtered = multiFilter(filtered, filters);
- 
+
         this.setState({
-          filteredResults : filtered
-        })
-       }
+          filteredResults: filtered
+        });
+      }
 
       console.info("Filtered:");
       console.log(filtered);
@@ -271,17 +274,17 @@ class App extends Component {
       });
 
       //2nd filter to filter b2b/b2C
-      if(this.state.selectedOption === "pros"){
+      if (this.state.selectedOption === "pros") {
         filters = {
           pros: ["OUI"]
         };
- 
+
         filtered = multiFilter(filtered, filters);
- 
+
         this.setState({
-          filteredResults : filtered
-        })
-       }
+          filteredResults: filtered
+        });
+      }
 
       console.info("Filtered:");
       console.log(filtered);
@@ -293,15 +296,15 @@ class App extends Component {
     // *filter the shops array by choosen parameters
   };
 
-
   render() {
     return (
       <React.Fragment>
+        
         <Header
           handleChanges={this.handleChanges}
           isClicked={this.isClicked}
           filterClick={this.filterClick}
-          moreFilterClick={this.moreFilterClick} 
+          moreFilterClick={this.moreFilterClick}
           filteredResults={this.state.filteredResults}
           startDate={this.state.startDate} // momentPropTypes.momentObj or null,
           startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
@@ -313,16 +316,51 @@ class App extends Component {
           focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
           onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
         />
-        {this.state.isMoreFiltersRequired && <MoreFilters 
-        handleChanges={this.handleChanges}
-          isClicked={this.isClicked}
-          filterClick={this.filterClick}
-          moreFilterClick={this.moreFilterClick} 
-          filteredResults={this.state.filteredResults}/>}
+
+        {this.state.isMoreFiltersRequired && (
+          <MoreFilters
+            handleChanges={this.handleChanges}
+            isClicked={this.isClicked}
+            filterClick={this.filterClick}
+            moreFilterClick={this.moreFilterClick}
+            filteredResults={this.state.filteredResults}
+          />
+        )}
+
         <React.Fragment>
-          {this.state.isNotClicked && <ShopPreview shops={this.state.shops} filteredResults={this.state.filteredResults}/> }    
-          {this.state.isClicked && <ShopSearch  filteredResults={this.state.filteredResults} shops={this.state.shops}/>}
+          {this.state.isNotClicked && (
+            <ShopPreview
+              loading={this.state.loading}
+              shops={this.state.shops}
+              filteredResults={this.state.filteredResults}
+            />
+          )}
+          {this.state.isClicked && (
+            <ShopSearch
+              loading={this.state.loading}
+              filteredResults={this.state.filteredResults}
+              shops={this.state.shops}
+            />
+          )}
         </React.Fragment>
+
+        <ShopDetails
+         handleChanges={this.handleChanges}
+         isClicked={this.isClicked}
+         filterClick={this.filterClick}
+         moreFilterClick={this.moreFilterClick}
+         filteredResults={this.state.filteredResults}
+         startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+         startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+         endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+         endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+         onDatesChange={({ startDate, endDate }) =>
+           this.setState({ startDate, endDate })
+         } // PropTypes.func.isRequired,
+         focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+         onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired
+        />
+
       </React.Fragment>
     );
   }

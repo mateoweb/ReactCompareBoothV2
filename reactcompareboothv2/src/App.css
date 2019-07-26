@@ -15,12 +15,12 @@
 }
 
 .card_container{
-  width: 100%;
+  width: 95%;
   display: block;
   margin-left: auto;
   margin-right: auto
 }
 
 .card_item{
-  width: "1000rem"
+  width: "50%"
 }
