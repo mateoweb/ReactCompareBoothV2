@@ -1,24 +1,26 @@
 import React, { Component } from "react";
-import Card from "react-bootstrap/Card"
-import CardColumns from "react-bootstrap/CardColumns";
+
+import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
+import Container from "react-bootstrap/Container"
+import Col from "react-bootstrap/Col"
+import Row from "react-bootstrap/Row"
+
 import "../App.css";
 
 class ShopResume extends Component {
   state = {};
   render() {
-    
     return (
       <React.Fragment>
- {(this.props.filteredResults === [""]) ? "Aucun Résultat" : 
-
-    ( <CardColumns className="card_container">
-      {this.props.filteredResults.map((detail, index) => {
-        return (
-          <Card className="card_item" key={index}>
-            <Card.Img variant="top" src={detail.imgURL} id="card_img" />
+        <Container>
+          <Row>
+            {this.props.filteredResults.map((detail, index) =>(
+              <Col md="4">
+                <Card key={index}>
+            <Card.Img variant="top" src={detail.imgURL} id="card_img" style/>
             <Card.Body>
               <Card.Title className="shopTitle">{detail.nom}</Card.Title>
               <Card.Text>{detail.resume}</Card.Text>
@@ -33,11 +35,13 @@ class ShopResume extends Component {
               </ListGroup>
             </Card.Body>
           </Card>
-          
-        );
-      })}
-    </CardColumns>)}
-    </React.Fragment>
+              </Col>
+            ))}
+            
+            
+          </Row>
+        </Container>
+      </React.Fragment>
     );
   }
 }

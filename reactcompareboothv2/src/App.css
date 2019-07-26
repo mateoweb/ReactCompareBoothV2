@@ -2,27 +2,4 @@
   text-align: center;
 }
 
-.shopTitle{
-  text-align: center;
-  text-transform: uppercase;
-}
 
-#card_img{
- width: 120px;
- display: block;
- margin-left: auto;
- margin-right: auto 
-}
-
-.card_container{
-  width: 95%;
-  flex: wrap;
-  display: flex;
-  margin-left: auto;
-  margin-right: auto
-}
-
-.card_item{
-  width: "50%";
-  flex: 1 1 50%;
-}
