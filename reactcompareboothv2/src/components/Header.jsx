@@ -7,6 +7,7 @@ import FormControl from "react-bootstrap/FormControl";
 import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 import moment from "moment";
+import { Link } from 'react-router-dom'
 
 moment.locale("fr");
 
@@ -71,9 +72,8 @@ class HeaderFilters extends Component {
               displayFormat={() => moment.localeData("fr").longDateFormat("L")}
             />
             &nbsp;
-            <Button variant="success" onClick={this.props.filterClick}>
-              Go !
-            </Button> &nbsp;
+            
+            <Link to="/SearchModule"><Button variant="success" onClick={this.props.filterClick}>Go !</Button></Link> &nbsp;
            
             <Button variant="primary" onClick={this.props.moreFilterClick}>
               Plus de filtres !

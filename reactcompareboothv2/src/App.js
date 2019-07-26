@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import config from "./config";
-
 import * as firebase from "firebase";
 import "react-dates/initialize";
 
@@ -10,7 +9,6 @@ import Header from "./components/Header";
 import MoreFilters from "./components/MoreFilters";
 import ShopPreview from "./components/ShopPreview";
 import ShopSearch from "./components/ShopSearch";
-import Footer from "./components/Footer";
 import ShopDetails from "./components/ShopDetails"
 
 class App extends Component {
@@ -125,8 +123,6 @@ class App extends Component {
           filteredResults: filtered
         });
       }
-      console.info("Filtered:");
-      console.log(filtered);
     } else if (
       this.state.helioBooth === true &&
       this.state.cabinePhoto === true
@@ -153,8 +149,7 @@ class App extends Component {
         });
       }
 
-      console.info("Filtered:");
-      console.log(filtered);
+     
     } else if (
       this.state.bornePhoto === true &&
       this.state.cabinePhoto === true
@@ -182,8 +177,6 @@ class App extends Component {
         });
       }
 
-      console.info("Filtered:");
-      console.log(filtered);
     } else if (
       this.state.helioBooth === true &&
       this.state.bornePhoto === true
@@ -211,8 +204,6 @@ class App extends Component {
         });
       }
 
-      console.info("Filtered:");
-      console.log(filtered);
     } else if (this.state.bornePhoto === true) {
       let filters = {
         bornePhoto: ["OUI"]
@@ -236,8 +227,6 @@ class App extends Component {
         });
       }
 
-      console.info("Filtered:");
-      console.log(filtered);
     } else if (this.state.cabinePhoto === true) {
       let filters = {
         cabinePhoto: ["OUI"]
@@ -261,8 +250,8 @@ class App extends Component {
         });
       }
 
-      console.info("Filtered:");
-      console.log(filtered);
+ 
+      
     } else if (this.state.helioBooth === true) {
       let filters = {
         heliobooth: ["OUI"]
@@ -285,9 +274,6 @@ class App extends Component {
           filteredResults: filtered
         });
       }
-
-      console.info("Filtered:");
-      console.log(filtered);
     } else {
       console.log("aucun résultat");
     }

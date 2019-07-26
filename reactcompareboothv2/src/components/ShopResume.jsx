@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card"
-import CardGroup from "react-bootstrap/CardGroup";
+import CardColumns from "react-bootstrap/CardColumns";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from "react-bootstrap/ListGroupItem";
@@ -11,8 +11,10 @@ class ShopResume extends Component {
   render() {
     
     return (
+      <React.Fragment>
+ {(this.props.filteredResults === [""]) ? "Aucun Résultat" : 
 
-      <CardGroup className="card_container">
+    ( <CardColumns className="card_container">
       {this.props.filteredResults.map((detail, index) => {
         return (
           <Card className="card_item" key={index}>
@@ -20,9 +22,9 @@ class ShopResume extends Component {
             <Card.Body>
               <Card.Title className="shopTitle">{detail.nom}</Card.Title>
               <Card.Text>{detail.resume}</Card.Text>
-              <Button variant="primary" onClick={this.props.filterClick}>
-                Détails
-              </Button>
+              <Button variant="primary" onClick={this.props.filterClick}>Détails</Button>
+            
+           
               <ListGroup className="list-group-flush">
                 <ListGroupItem>
                   {detail.startPrice === "" ? "Sur devis" : 'A partir de ' + detail.startPrice + ' €'}
@@ -31,9 +33,11 @@ class ShopResume extends Component {
               </ListGroup>
             </Card.Body>
           </Card>
+          
         );
       })}
-    </CardGroup>
+    </CardColumns>)}
+    </React.Fragment>
     );
   }
 }
