@@ -18,9 +18,9 @@ class ShopResume extends Component {
         <Container>
           <Row>
             {this.props.filteredResults.map((detail, index) =>(
-              <Col md="4">
-                <Card key={index}>
-            <Card.Img variant="top" src={detail.imgURL} id="card_img" style/>
+              <Col md="4" key={index}>
+                <Card >
+            <Card.Img variant="top" src={detail.imgURL} id="card_img"/>
             <Card.Body>
               <Card.Title className="shopTitle">{detail.nom}</Card.Title>
               <Card.Text>{detail.resume}</Card.Text>

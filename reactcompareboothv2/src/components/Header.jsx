@@ -22,7 +22,6 @@ class HeaderFilters extends Component {
             {["radio"].map(type => (
               <React.Fragment key={`custom-inline-${type}`}>
                 <Form.Check
-                  defaultChecked = "true"
                   custom
                   inline
                   label="Particuliers"
