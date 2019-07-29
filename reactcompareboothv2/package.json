@@ -17,6 +17,7 @@
     "react-reveal": "^1.2.2",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "react-router-with-props": "^1.0.0",
     "react-scripts": "3.0.1",
     "react-sticky-footer": "0.1.0-rc3"
   },

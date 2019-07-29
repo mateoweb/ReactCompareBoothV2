@@ -16,8 +16,8 @@ class HeaderFilters extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar className="bg-light">
-          <Navbar.Brand href="#home">Comparator-Booth</Navbar.Brand>
+        <Navbar id="navbar" className="bg-light">
+          <Link to='/'><Navbar.Brand href="#home">Comparator-Booth</Navbar.Brand></Link>
           <Form inline>
             {["radio"].map(type => (
               <React.Fragment key={`custom-inline-${type}`}>
@@ -71,9 +71,8 @@ class HeaderFilters extends Component {
               displayFormat={() => moment.localeData("fr").longDateFormat("L")}
             />
             &nbsp;
+            <Button variant="success" onClick={this.props.filterClick}><Link to = "/search" >Recherche !</Link></Button> &nbsp;
             
-            <Link to="/SearchModule"><Button variant="success" onClick={this.props.filterClick}>Go !</Button></Link> &nbsp;
-           
             <Button variant="primary" onClick={this.props.moreFilterClick}>
               Plus de filtres !
             </Button>

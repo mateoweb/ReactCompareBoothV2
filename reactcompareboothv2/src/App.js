@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import config from "./config";
 import * as firebase from "firebase";
 import "react-dates/initialize";
-
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner'
 import "./App.css";
 
 import Header from "./components/Header";
 import MoreFilters from "./components/MoreFilters";
 import ShopPreview from "./components/ShopPreview";
 import ShopSearch from "./components/ShopSearch";
-import ShopDetails from "./components/ShopDetails"
+import ShopDetails from "./components/ShopDetails";
 
 class App extends Component {
   constructor(props) {
@@ -35,6 +36,15 @@ class App extends Component {
     }
   }
 
+  checkLoading = () => {
+    if (this.state.loading === true ){
+      (console.log('loading...'))
+    }
+    else if (this.state.loading === false){
+      console.log('Finish load')
+    }
+  }
+
   getUserData = () => {
     let ref = firebase.database().ref("shops");
     ref.on("value", snapshot => {
@@ -45,7 +55,9 @@ class App extends Component {
       });
     });
   };
+
   componentWillMount() {
+    this.checkLoading();
     this.getUserData();
   }
 
@@ -148,8 +160,6 @@ class App extends Component {
           filteredResults: filtered
         });
       }
-
-     
     } else if (
       this.state.bornePhoto === true &&
       this.state.cabinePhoto === true
@@ -176,7 +186,6 @@ class App extends Component {
           filteredResults: filtered
         });
       }
-
     } else if (
       this.state.helioBooth === true &&
       this.state.bornePhoto === true
@@ -203,7 +212,6 @@ class App extends Component {
           filteredResults: filtered
         });
       }
-
     } else if (this.state.bornePhoto === true) {
       let filters = {
         bornePhoto: ["OUI"]
@@ -226,7 +234,6 @@ class App extends Component {
           filteredResults: filtered
         });
       }
-
     } else if (this.state.cabinePhoto === true) {
       let filters = {
         cabinePhoto: ["OUI"]
@@ -249,9 +256,6 @@ class App extends Component {
           filteredResults: filtered
         });
       }
-
- 
-      
     } else if (this.state.helioBooth === true) {
       let filters = {
         heliobooth: ["OUI"]
@@ -284,70 +288,94 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        
-        <Header
-          handleChanges={this.handleChanges}
-          isClicked={this.isClicked}
-          filterClick={this.filterClick}
-          moreFilterClick={this.moreFilterClick}
-          filteredResults={this.state.filteredResults}
-          startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-          startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-          endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-          endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-          onDatesChange={({ startDate, endDate }) =>
-            this.setState({ startDate, endDate })
-          } // PropTypes.func.isRequired,
-          focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-          onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-        />
-
-        {this.state.isMoreFiltersRequired ? 
-          <MoreFilters
+      <Router>
+        <div>
+          <Header
             handleChanges={this.handleChanges}
             isClicked={this.isClicked}
             filterClick={this.filterClick}
             moreFilterClick={this.moreFilterClick}
             filteredResults={this.state.filteredResults}
-          /> : null
-        }
+            startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+            startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+            endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+            endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+            onDatesChange={({ startDate, endDate }) =>
+              this.setState({ startDate, endDate })
+            } // PropTypes.func.isRequired,
+            focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+            onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+          />
 
-        <React.Fragment>
-          {this.state.isNotClicked && (
-            <ShopPreview
-              loading={this.state.loading}
-              shops={this.state.shops}
+          {this.state.isMoreFiltersRequired ? (
+            <MoreFilters
+              handleChanges={this.handleChanges}
+              isClicked={this.isClicked}
+              filterClick={this.filterClick}
+              moreFilterClick={this.moreFilterClick}
               filteredResults={this.state.filteredResults}
             />
-          )}
-          {this.state.isClicked && (
-            <ShopSearch
-              loading={this.state.loading}
+          ) : null}
+          <div>
+          {this.state.login ?   <Spinner animation="border" size="xl" /> : null }
+          </div>
+
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <ShopPreview
+                loading={this.state.loading}
+                shops={this.state.shops}
+                filteredResults={this.state.filteredResults}
+              />
+            )}
+          />
+
+          <Route
+            path="/search"
+            render={() => (
+              <ShopSearch
+                loading={this.state.loading}
+                shops={this.state.shops}
+                filteredResults={this.state.filteredResults}
+              />
+            )}
+          />
+
+          <Route
+            path="/search"
+            render={() => (
+              <ShopSearch
+                loading={this.state.loading}
+                shops={this.state.shops}
+                filteredResults={this.state.filteredResults}
+              />
+            )}
+          />
+
+          <Route path="/shopDetail"
+            render={() => (
+              <ShopDetails
+              handleChanges={this.handleChanges}
+              isClicked={this.isClicked}
+              filterClick={this.filterClick}
+              moreFilterClick={this.moreFilterClick}
               filteredResults={this.state.filteredResults}
-              shops={this.state.shops}
+              startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+              startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+              endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+              endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+              onDatesChange={({ startDate, endDate }) =>
+                this.setState({ startDate, endDate })
+              } // PropTypes.func.isRequired,
+              focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+              onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired
             />
-          )}
-        </React.Fragment>
-
-        <ShopDetails
-         handleChanges={this.handleChanges}
-         isClicked={this.isClicked}
-         filterClick={this.filterClick}
-         moreFilterClick={this.moreFilterClick}
-         filteredResults={this.state.filteredResults}
-         startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-         startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-         endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-         endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-         onDatesChange={({ startDate, endDate }) =>
-           this.setState({ startDate, endDate })
-         } // PropTypes.func.isRequired,
-         focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-         onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired
-        />
-
-      </React.Fragment>
+            )}
+          ></Route>
+        </div>
+      </Router>
     );
   }
 }

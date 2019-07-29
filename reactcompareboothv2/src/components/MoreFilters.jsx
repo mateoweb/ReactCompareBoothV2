@@ -11,7 +11,7 @@ class MoreFilters extends Component {
     return (
       <React.Fragment>
         {["checkbox"].map(type => (
-          <div className="list-group">
+          <div  id="moreFilterBox" className="list-group">
             <div className="list-group-item">
               <div key={`custom-inline-${type}`} className="mb-3">
               <Form.Label>Type de matériel: &nbsp;</Form.Label>
