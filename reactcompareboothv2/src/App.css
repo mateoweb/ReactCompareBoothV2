@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+/* IL faut changer la taille des images des box */
 .card_img{
-  width: 150px;
+  width: 100px !important;
 }

@@ -61,10 +61,10 @@ class App extends Component {
 
     this.setState({
       ...this.state,
-      isMoreFiltersNotRequired: false,
+      isMoreFiltersNotRequired: !this.state.isMoreFiltersNotRequired,
 
       //If its Search Click is cliked
-      isMoreFiltersRequired: true,
+      isMoreFiltersRequired: !this.state.isMoreFiltersRequired,
       filteredResultsLength: this.state.filteredResults.length
     });
   };
@@ -303,15 +303,15 @@ class App extends Component {
           onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
         />
 
-        {this.state.isMoreFiltersRequired && (
+        {this.state.isMoreFiltersRequired ? 
           <MoreFilters
             handleChanges={this.handleChanges}
             isClicked={this.isClicked}
             filterClick={this.filterClick}
             moreFilterClick={this.moreFilterClick}
             filteredResults={this.state.filteredResults}
-          />
-        )}
+          /> : null
+        }
 
         <React.Fragment>
           {this.state.isNotClicked && (

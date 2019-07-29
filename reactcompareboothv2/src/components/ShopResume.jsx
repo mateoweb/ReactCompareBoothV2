@@ -18,7 +18,7 @@ class ShopResume extends Component {
         <Container>
           <Row>
             {this.props.filteredResults.map((detail, index) =>(
-              <Col md="4" key={index}>
+              <Col xs={6} md={3} key={index}>
                 <Card >
             <Card.Img variant="top" src={detail.imgURL} id="card_img"/>
             <Card.Body>
