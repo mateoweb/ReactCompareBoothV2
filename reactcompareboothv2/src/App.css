@@ -2,19 +2,23 @@
   text-align: center;
 }
 
-/* IL faut changer la taille des images des box */
-.card_img{
-  width: 100px !important;
-}
-
-#search_title{
+.search_title{
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;
-  font-size:2,5rem;
+  font-size:1.2rem;
   font-weight: bold;
   text-transform: uppercase;
 
+}
+
+.shop_title{
+  font-size:1rem;
+  font-weight: bold;
+}
+
+#resume{
+  font-size:12px
 }
 
 #shopPreviewCard{
@@ -28,3 +32,16 @@
 #moreFilterBox{
   box-shadow: 5px 5px 5px rgba(145, 143, 143, 0.199);
 }
+
+#shop_container{
+  display: flex;
+}
+
+#img_box_lft{
+  float: left;
+}
+
+#img_box_rgt{
+  float: right
+}
+

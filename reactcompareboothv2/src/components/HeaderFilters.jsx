@@ -18,7 +18,7 @@ class HeaderFilters extends Component {
       <React.Fragment>
         <Navbar id="navbar" className="bg-light">
           <Link to='/'><Navbar.Brand href="#home">Comparator-Booth</Navbar.Brand></Link>
-          <Form inline>
+          <Form inline action="https://docs.google.com/forms/d/e/1FAIpQLSdFMU1qNo4vc04bZc9u90SYrPgEdqVzQ9VGvQ1U3fZ6mshNRA/formResponse" target="_self" method="POST" id="mG61Hd" >
             {["radio"].map(type => (
               <React.Fragment key={`custom-inline-${type}`}>
                 <Form.Check
@@ -27,6 +27,7 @@ class HeaderFilters extends Component {
                   label="Particuliers"
                   type={type}
                   id={`custom-inline-${type}-1`}
+                  jsname="wCJL8"
                   name="selectedOption"
                   value="particuliers"
                   checked={this.props.selectedOption === "particuliers"}
@@ -71,7 +72,7 @@ class HeaderFilters extends Component {
               displayFormat={() => moment.localeData("fr").longDateFormat("L")}
             />
             &nbsp;
-            <Button variant="success" onClick={this.props.filterClick}><Link to = "/search" >Recherche !</Link></Button> &nbsp;
+            <Button type="submit"variant="success" onClick={this.props.filterClick}><Link to = "/search" >Recherche !</Link></Button> &nbsp;
             
             <Button variant="primary" onClick={this.props.moreFilterClick}>
               Plus de filtres !

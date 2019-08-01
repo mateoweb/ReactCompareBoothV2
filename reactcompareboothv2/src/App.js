@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import config from "./config";
 import * as firebase from "firebase";
 import "react-dates/initialize";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Spinner from 'react-bootstrap/Spinner'
+import { BrowserRouter as Router, Route} from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 import "./App.css";
 
-import Header from "./components/Header";
+import HeaderFilters from "./components/HeaderFilters";
 import MoreFilters from "./components/MoreFilters";
 import ShopPreview from "./components/ShopPreview";
 import ShopSearch from "./components/ShopSearch";
@@ -16,6 +16,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      sheetLoaded: false,
       isNotClicked: true,
       isMoreFiltersNotRequired: true,
       handleShopClick: false,
@@ -27,7 +28,8 @@ class App extends Component {
       filteredResultsLength: 0,
       rating: 5,
       shops: [],
-      loading: true
+      loading: true,
+      zip_code: ''
     };
     //To resolve clone App error when we are initializing App
 
@@ -37,13 +39,12 @@ class App extends Component {
   }
 
   checkLoading = () => {
-    if (this.state.loading === true ){
-      (console.log('loading...'))
+    if (this.state.loading === true) {
+      console.log("loading...");
+    } else if (this.state.loading === false) {
+      console.log("Finish load");
     }
-    else if (this.state.loading === false){
-      console.log('Finish load')
-    }
-  }
+  };
 
   getUserData = () => {
     let ref = firebase.database().ref("shops");
@@ -285,17 +286,22 @@ class App extends Component {
     // *the value of each key is an array with the values to filter
     // *filter the shops array by choosen parameters
   };
+ 
 
   render() {
     return (
       <Router>
         <div>
-          <Header
+          <HeaderFilters
+            wrapperHeaderFunction = {this.wrapperHeaderFunction}
+            zip_code = {this.state.zip_code}
             handleChanges={this.handleChanges}
             isClicked={this.isClicked}
             filterClick={this.filterClick}
+            selectedOption={this.state.selectedOption}
             moreFilterClick={this.moreFilterClick}
             filteredResults={this.state.filteredResults}
+            rating={this.state.rating}
             startDate={this.state.startDate} // momentPropTypes.momentObj or null,
             startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
             endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -314,10 +320,11 @@ class App extends Component {
               filterClick={this.filterClick}
               moreFilterClick={this.moreFilterClick}
               filteredResults={this.state.filteredResults}
+              rating={this.state.rating}
             />
           ) : null}
           <div>
-          {this.state.login ?   <Spinner animation="border" size="xl" /> : null }
+            {this.state.login ? <Spinner animation="border" size="xl" /> : null}
           </div>
 
           <Route
@@ -328,6 +335,7 @@ class App extends Component {
                 loading={this.state.loading}
                 shops={this.state.shops}
                 filteredResults={this.state.filteredResults}
+                rating={this.state.rating}
               />
             )}
           />
@@ -339,41 +347,35 @@ class App extends Component {
                 loading={this.state.loading}
                 shops={this.state.shops}
                 filteredResults={this.state.filteredResults}
+                rating={this.state.rating}
               />
             )}
           />
 
           <Route
-            path="/search"
-            render={() => (
-              <ShopSearch
-                loading={this.state.loading}
-                shops={this.state.shops}
-                filteredResults={this.state.filteredResults}
-              />
-            )}
-          />
-
-          <Route path="/shopDetail"
+            path="/shopDetail/:id"
             render={() => (
               <ShopDetails
-              handleChanges={this.handleChanges}
-              isClicked={this.isClicked}
-              filterClick={this.filterClick}
-              moreFilterClick={this.moreFilterClick}
-              filteredResults={this.state.filteredResults}
-              startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-              startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-              endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-              endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-              onDatesChange={({ startDate, endDate }) =>
-                this.setState({ startDate, endDate })
-              } // PropTypes.func.isRequired,
-              focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-              onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired
-            />
+                shops = {this.state.shops}
+                handleChanges={this.handleChanges}
+                isClicked={this.isClicked}
+                filterClick={this.filterClick}
+                moreFilterClick={this.moreFilterClick}
+                rating={this.state.rating}
+                filteredResults={this.state.filteredResults}
+                startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+                onDatesChange={({ startDate, endDate }) =>
+                  this.setState({ startDate, endDate })
+                } // PropTypes.func.isRequired,
+                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired
+                SelectedShop = {this.state.SelectedShop}
+              />
             )}
-          ></Route>
+          />
         </div>
       </Router>
     );
