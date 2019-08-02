@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../App.css";
 import StarRatings from "react-star-ratings";
 import ShopDetails from "./ShopDetails";
@@ -14,7 +14,6 @@ class Shops extends Component {
   state = {};
 
   render() {
- 
     return (
       <Container>
         <ListGroup>
@@ -31,7 +30,7 @@ class Shops extends Component {
                   />
                 </Col>
                 <Col>
-                  <h3 class="shop_title">{detail.nom}</h3>
+                  <h3 className="shop_title">{detail.nom}</h3>
                   <StarRatings
                     rating={this.props.rating}
                     starRatedColor="#DAA520"
@@ -50,9 +49,13 @@ class Shops extends Component {
                       : "A partir de " + detail.startPrice + " €"}
                   </Row>
                   <Row>
-
- { /* Make route with id, with key= detail.id */}
-                      <Link to={"/shopDetail/" + detail.id}>
+                    {/* Make route with id, with key= detail.id */}
+                    <Link
+                      to={{
+                        pathname: "/shopDetail/" + detail.id,
+                        state: {shops : this.props.shops}
+                      }}
+                    >
                       <Button
                         className="detailButton"
                         key={detail.id}
@@ -62,28 +65,6 @@ class Shops extends Component {
                         Détails
                       </Button>
                     </Link>
-                    <Route path={`/shopDetail/:id` }  render={() => (
-              <ShopDetails
-                shops = {this.props.state.shops}
-                handleChanges={this.props.handleChanges}
-                isClicked={this.props.isClicked}
-                filterClick={this.props.filterClick}
-                moreFilterClick={this.props.moreFilterClick}
-                rating={this.props.rating}
-                filteredResults={this.props.filteredResults}
-                startDate={this.props.startDate} // momentPropTypes.momentObj or null,
-                startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-                endDate={this.props.endDate} // momentPropTypes.momentObj or null,
-                endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-                onDatesChange={({ startDate, endDate }) =>
-                  this.setState({ startDate, endDate })
-                } // PropTypes.func.isRequired,
-                focusedInput={this.props.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired
-                SelectedShop = {this.props.SelectedShop}
-              />
-            )} />
-
                   </Row>
                 </Col>
               </Row>

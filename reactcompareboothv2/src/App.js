@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import config from "./config";
 import * as firebase from "firebase";
 import "react-dates/initialize";
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import "./App.css";
 
@@ -29,7 +29,7 @@ class App extends Component {
       rating: 5,
       shops: [],
       loading: true,
-      zip_code: ''
+      zip_code: ""
     };
     //To resolve clone App error when we are initializing App
 
@@ -286,15 +286,13 @@ class App extends Component {
     // *the value of each key is an array with the values to filter
     // *filter the shops array by choosen parameters
   };
- 
 
   render() {
     return (
       <Router>
-        <div>
           <HeaderFilters
-            wrapperHeaderFunction = {this.wrapperHeaderFunction}
-            zip_code = {this.state.zip_code}
+            wrapperHeaderFunction={this.wrapperHeaderFunction}
+            zip_code={this.state.zip_code}
             handleChanges={this.handleChanges}
             isClicked={this.isClicked}
             filterClick={this.filterClick}
@@ -327,56 +325,40 @@ class App extends Component {
             {this.state.login ? <Spinner animation="border" size="xl" /> : null}
           </div>
 
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <ShopPreview
-                loading={this.state.loading}
-                shops={this.state.shops}
-                filteredResults={this.state.filteredResults}
-                rating={this.state.rating}
-              />
-            )}
-          />
 
-          <Route
-            path="/search"
-            render={() => (
-              <ShopSearch
-                loading={this.state.loading}
-                shops={this.state.shops}
-                filteredResults={this.state.filteredResults}
-                rating={this.state.rating}
-              />
-            )}
-          />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <ShopPreview
+                  loading={this.state.loading}
+                  shops={this.state.shops}
+                  filteredResults={this.state.filteredResults}
+                  rating={this.state.rating}
+                />
+              )}
+            />
 
-          <Route
-            path="/shopDetail/:id"
-            render={() => (
-              <ShopDetails
-                shops = {this.state.shops}
-                handleChanges={this.handleChanges}
-                isClicked={this.isClicked}
-                filterClick={this.filterClick}
-                moreFilterClick={this.moreFilterClick}
-                rating={this.state.rating}
-                filteredResults={this.state.filteredResults}
-                startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-                endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-                onDatesChange={({ startDate, endDate }) =>
-                  this.setState({ startDate, endDate })
-                } // PropTypes.func.isRequired,
-                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired
-                SelectedShop = {this.state.SelectedShop}
-              />
-            )}
-          />
-        </div>
+            <Route
+              path="/search"
+              render={() => (
+                <ShopSearch
+                  loading={this.state.loading}
+                  shops={this.state.shops}
+                  filteredResults={this.state.filteredResults}
+                  rating={this.state.rating}
+                />
+              )}
+            />
+
+            <Route
+              path={`/shopDetail/:id`}
+              render={routeProps => (
+                <ShopDetails {...routeProps} shops={this.state.shops} />
+              )}
+            />
+          </Switch>
       </Router>
     );
   }

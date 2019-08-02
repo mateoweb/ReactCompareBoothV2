@@ -1,30 +1,46 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
 class ShopDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {  }
-  }
-  
+    constructor(props){
+      super(props)
+      this.setState({
+        shop:[]
+      }
+      )
+      
+    }
   render() { 
- 
-    console.log(window.location.pathname);
+     
+      console.log("Props shops: " ,this.props.shops)
+      const id = this.props.match.params.id;
+      console.log("id: ", id)
+      const data = this.props.shops || {}
+      console.log("data: ", data)
+      const shop = data.find(s => s.id == id)
+      console.log("const shop = data.find(...): ", shop)
+      
+      return (
+  <div>
 
-    return ( 
-      <div>
-        <h1>
-        {this.props.shops.map((detail, index) => (
-          <h1 key={index}>
-            {detail.nom}
-          </h1>
-        ))}
-        </h1>
-      </div>
-     );
-  }
+{
+ shop ? <div>{shop.nom}</div> : null
 }
+
+{
+  shop ? <div>{shop.id}</div> : null
+ }
+ {
+ shop ? <div>{shop.startPrice}</div> : null
+}
+  </div>
+)    
+}}
  
-export default ShopDetails;
+export default ShopDetails
+
+
+
+
 /* <div className="container">
 
         
@@ -52,3 +68,27 @@ export default ShopDetails;
   </div>
 </div>
 </div> */
+
+// class ShopDetails extends Component {
+//   componentDidMount(){
+
+//     const id= window.location.pathname.replace("/shopDetail/", "");
+
+//     console.log(this.props.match.params)
+//     console.log(id)
+
+//   }
+
+//   render() {
+
+  // const id = window.location.pathname.replace("/shopDetail/", "");
+  // const data = this.props.shops
+  // console.log(id, data)
+  //     return ( 
+  //       <div>
+  
+  //       </div>
+  //      );
+  //   }
+
+  //const id = this.props.location.pathname("/shopDetail/", "");

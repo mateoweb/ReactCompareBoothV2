@@ -7,10 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter, Route } from "react-router-dom";
 
 ReactDOM.render(
-  <BrowserRouter>
-<Route exactly pattern="/" component={App}/>
-   
-  </BrowserRouter>,
+ <App/>,
   document.getElementById("root")
 );
 
